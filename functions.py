@@ -9,4 +9,4 @@ def verify_email(email):
     else:
         print("Invalid Email")
 
-verify_email("singh.manveer93@ICLOUD.com")
+verify_email("singh.manveer93@IC2LOUD.com")
