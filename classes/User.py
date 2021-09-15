@@ -62,3 +62,9 @@ moi = User(nom, prenom, dateNaissance , pays, email)
 print(moi.get_id())
 print(moi.get_dob())
 print(moi.get_email())
+
+import string
+from random import *
+allcharactere = string.ascii_letters+string.digits+string.punctuation
+pwd= "".join(choice(allcharactere ) for x in range(randint(8, 20)))
+print("Your Password is: ", pwd)
