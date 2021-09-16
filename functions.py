@@ -1,4 +1,7 @@
 import re
+import string
+from random import *
+
 
 def verify_email(email):
 
@@ -9,4 +12,11 @@ def verify_email(email):
     else:
         print("Invalid Email")
 
+def generate_pwd():
+    allCharacters = string.ascii_letters + string.digits + string.punctuation
+    pwd = "".join(choice(allCharacters) for x in range(randint(8, 10)))
+    print("Your Password is: ", pwd)
+    return pwd
+
 verify_email("singh.manveer93@IC2LOUD.com")
+generate_pwd()

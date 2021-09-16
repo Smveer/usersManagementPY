@@ -1,3 +1,6 @@
+from functions import *
+
+
 class User(object):
 
     def __init__(self, lastname, firstname, dob, pob, email):
@@ -6,8 +9,7 @@ class User(object):
         self.dateOfBirth = dob
         self.placeOfBirth = pob
         self.email = email
-
-
+        self.password = generate_pwd()
 
     def set_lastname(self, lastname):
         self.lastname = lastname
@@ -39,8 +41,8 @@ class User(object):
     def get_email(self):
         return self.email
 
-    def set_pwd(self, pwd):
-        self.password = pwd
+    def set_pwd(self):
+        self.password = generate_pwd()
 
     def get_pwd(self):
         return self.password
@@ -58,13 +60,10 @@ dateNaissance.append(int(input("year:")))
 pays = input("pays:")
 email = input("nom:")
 
-moi = User(nom, prenom, dateNaissance , pays, email)
+moi = User(nom, prenom, dateNaissance, pays, email)
 print(moi.get_id())
 print(moi.get_dob())
 print(moi.get_email())
-
-import string
-from random import *
-allcharactere = string.ascii_letters+string.digits+string.punctuation
-pwd= "".join(choice(allcharactere ) for x in range(randint(8, 20)))
-print("Your Password is: ", pwd)
+print(moi.get_pwd())
+moi.set_pwd()
+print(moi.get_pwd())
