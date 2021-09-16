@@ -1,6 +1,7 @@
 import re
-import string
-from random import *
+import random 
+import string 
+import hashlib
 
 
 def verify_email(email):
@@ -13,10 +14,19 @@ def verify_email(email):
         print("Invalid Email")
 
 def generate_pwd():
-    allCharacters = string.ascii_letters + string.digits + string.punctuation
-    pwd = "".join(choice(allCharacters) for x in range(randint(8, 10)))
-    print("Your Password is: ", pwd)
-    return pwd
+   allcharactere = string.ascii_letters+string.digits+string.punctuation
+print ('The available characters:',allcharactere)
+pwd=""
+
+for i in range (12):
+    pwd+=allcharactere [ random.randint(0,len (allcharactere)-1)]
+print("The password is :", pwd)
+
+salt="project"
+pwd_hashe=hashlib.sha512(pwd.encode()+ salt.encode()) .hexdigest()
+print("The encryption password:", pwd_hashe
 
 verify_email("singh.manveer93@IC2LOUD.com")
 generate_pwd()
+
+
