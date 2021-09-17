@@ -1,12 +1,15 @@
 from functions import *
 
+
 class User(object):
 
-    def __init__(self, lastname, firstname, dob, pob, email):
+    def __init__(self, lastname, firstname, day, month, year, pob, email):
         self.lastname = lastname
         self.firstname = firstname
-        self.dateOfBirth = dob
+        verify_date(day, month, year)
+        self.dateOfBirth = [day, month, year]
         self.placeOfBirth = pob
+        verify_email(email)
         self.email = email
         self.password = generate_pwd()
 

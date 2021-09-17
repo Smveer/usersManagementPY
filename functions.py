@@ -3,6 +3,7 @@ import random
 import string
 import hashlib
 import datetime
+import sys
 
 
 def verify_email(email):
@@ -10,7 +11,7 @@ def verify_email(email):
     if (re.search(regex, email)):
         return True
     else:
-        return False
+        sys.exit("Error in email")
 
 
 def generate_pwd():
@@ -27,14 +28,11 @@ def generate_pwd():
 
 
 def verify_date(day, month, year):
-    if (1 > day > 31)  or (datetime.date.today().year == year and datetime.date.today().month == month and datetime.date.today().day < day):
-        print("The given day is wrong")
-        return False
+    if (1 > day > 31) or (datetime.date.today().year == year and datetime.date.today().month == month and datetime.date.today().day < day):
+        sys.exit("The given date is wrong")
     elif (1 > month > 12) or (datetime.date.today().year == year and datetime.date.today().month < month):
-        print("The given month is wrong")
-        return False
+        sys.exit("The given date is wrong")
     elif datetime.date.today().year < year:
-        print("The given year is wrong")
-        return False
+        sys.exit("The given date is wrong")
     else:
         return True
