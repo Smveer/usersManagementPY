@@ -1,6 +1,5 @@
 from functions import *
 
-
 class User(object):
 
     def __init__(self, lastname, firstname, dob, pob, email):
@@ -49,21 +48,3 @@ class User(object):
 
     def get_id(self):
         return self.firstname[0] + self.lastname
-
-
-nom = input("nom:")
-prenom = input("prenom:")
-dateNaissance = []
-dateNaissance.append(int(input("day:")))
-dateNaissance.append(int(input("month:")))
-dateNaissance.append(int(input("year:")))
-pays = input("pays:")
-email = input("nom:")
-
-moi = User(nom, prenom, dateNaissance, pays, email)
-print(moi.get_id())
-print(moi.get_dob())
-print(moi.get_email())
-print(moi.get_pwd())
-moi.set_pwd()
-print(moi.get_pwd())
