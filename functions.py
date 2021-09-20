@@ -4,6 +4,7 @@ import string
 import hashlib
 import datetime
 import sys
+sys.path.append("../../usersManagementPY")
 
 
 def verify_email(email):

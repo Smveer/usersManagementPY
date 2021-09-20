@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../../usersManagementPY")
+
 from functions import *
 
 

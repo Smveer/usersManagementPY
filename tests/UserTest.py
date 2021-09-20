@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../../usersManagementPY")
+
 from classes.User import *
 
 nom = input("nom:")
