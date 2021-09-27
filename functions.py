@@ -70,9 +70,13 @@ def verify_pwd_validity(pwd):
 
 def verify_date(the_date):
     split_date = the_date.split('/')
-    try:
-        datetime.datetime(int(split_date[2]), int(split_date[1]), int(split_date[0]))
-        return True
-    except ValueError:
+    if len(split_date) == 3:
+        try:
+            datetime.datetime(int(split_date[2]), int(split_date[1]), int(split_date[0]))
+            return True
+        except ValueError:
+            print("please can you retry ")
+            return False
+    else:
         print("please can you retry ")
         return False
