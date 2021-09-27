@@ -27,14 +27,20 @@ def generate_pwd():
     # print("The encryption password:", hashed)
     return hashed
 
+def expiration_pwd()
+
+
+
 
 def verify_date(day, month, year):
-    if (1 > day > 31) or (
-            datetime.date.today().year == year and datetime.date.today().month == month and datetime.date.today().day < day):
-        sys.exit("The given date is wrong")
-    elif (1 > month > 12) or (datetime.date.today().year == year and datetime.date.today().month < month):
-        sys.exit("The given date is wrong")
-    elif datetime.date.today().year < year:
-        sys.exit("The given date is wrong")
+    Date = input("Enter the date of birth : ")
+    day, month, year = Date.split('/')
+    Valid = True
+    try:
+        datetime.datetime(int(year), int(month), int(day))
+    except ValueError:
+        Valid = False
+    if (Valid):
+        print("Correct")
     else:
-        return True
+        print("please can you retry ")
