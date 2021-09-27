@@ -4,4 +4,4 @@ sys.path.append("../../usersManagementPY")
 
 from classes.User import *
 
-verify_date("17/09/2021")
+verify_date("26/09/2021")

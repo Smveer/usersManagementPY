@@ -71,12 +71,22 @@ def verify_pwd_validity(pwd):
 def verify_date(the_date):
     split_date = the_date.split('/')
     if len(split_date) == 3:
-        try:
-            datetime.datetime(int(split_date[2]), int(split_date[1]), int(split_date[0]))
-            return True
-        except ValueError:
-            print("please can you retry ")
+        if (1 > int(split_date[0]) > 31) or (datetime.date.today().year == int(split_date[2]) and datetime.date.today().month == int(split_date[1]) and datetime.date.today().day < int(split_date[0])):
+            print("The given date is wrong")
             return False
+        elif (1 > int(split_date[1]) > 12) or (datetime.date.today().year == int(split_date[2]) and datetime.date.today().month < int(split_date[1])):
+            print("The given date is wrong")
+            return False
+        elif datetime.date.today().year < int(split_date[2]):
+            print("The given date is wrong")
+            return False
+        else:
+            try:
+                datetime.datetime(int(split_date[2]), int(split_date[1]), int(split_date[0]))
+                return True
+            except ValueError:
+                print("The given date is wrong")
+                return False
     else:
-        print("please can you retry ")
+        print("The given date is wrong")
         return False
