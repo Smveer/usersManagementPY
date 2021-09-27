@@ -6,6 +6,7 @@ import datetime
 from datetime import date, timedelta
 import calendar
 import sys
+
 sys.path.append("../../usersManagementPY")
 
 
@@ -29,47 +30,49 @@ def generate_pwd():
     # print("The encryption password:", hashed)
     return hashed
 
-def expired_pwd():
+
+def set_pwd_expiry():
     now = datetime.datetime.now()
     one_month = calendar.monthrange(now.year, now.month)[1]
     end = now + timedelta(days=one_month)
-    # print ("You started the company on : " )
-    # print (now.strftime("%d-%m-%Y"))
     print("You can change your password on  ")
     print(end.strftime("%d-%m-%Y"))
 
-def create_pwd(pwd):
-    print("Your password must contain at least 8 characters,  1 lowercase letter, 1 capital letter, 1 digit and special characters.\n")
-    print("Now enter your password.\n")
+
+def verify_pwd_validity(pwd):
+    print("Your password must contain at least:\n"
+          "8 characters,\n"
+          "1 lowercase letter,\n"
+          "1 capital letter,\n"
+          "1 digit\n")
     lower, upper, special, digit = 0, 0, 0, 0
-    if (len(pwd) >= 8):
-        for i in pwd:
-            if (i.isupper()):
+    if len(pwd) >= 8:
+        for character in pwd:
+            if character.isupper():
                 upper += 1
-            if (i.islower()):
+            if character.islower():
                 lower += 1
-            if (i.isdigit()):
+            if character.isdigit():
                 digit += 1
-            for j in string.punctuation:
-                if i == j:
+            for punctuation in string.punctuation:
+                if character == punctuation:
                     special += 1
     else:
         print("Password should be more than 8 characters")
-    if (lower >= 1 and upper >= 1 and special >= 1 and digit >= 1):
+        return False
+    if lower >= 1 and upper >= 1 and special >= 1 and digit >= 1:
         print("Valid Password")
+        return True
     else:
         print("Password not valid. Please try again")
+        return False
 
 
-def verify_date(day, month, year):
-    Date = input("Enter the date of birth : ")
-    day, month, year = Date.split('/')
-    Valid = True
+def verify_date(the_date):
+    split_date = the_date.split('/')
     try:
-        datetime.datetime(int(year), int(month), int(day))
+        datetime.datetime(int(split_date[2]), int(split_date[1]), int(split_date[0]))
+        return True
     except ValueError:
-        Valid = False
-    if (Valid):
-        print("Correct")
-    else:
         print("please can you retry ")
+        return False
