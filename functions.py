@@ -3,6 +3,8 @@ import random
 import string
 import hashlib
 import datetime
+from datetime import date, timedelta
+import calendar
 import sys
 sys.path.append("../../usersManagementPY")
 
@@ -28,8 +30,14 @@ def generate_pwd():
     return hashed
 
 def expiration_pwd()
+    now = datetime.datetime.now()
+    one_month = calendar.monthrange(now.year, now.month)[1]
+    end = now + timedelta(days=one_month)
 
-
+    print("Current date: ")
+    print(now.strftime("%d-%m-%Y"))
+    print("1 Month: ")
+    print(end.strftime("%d-%m-%Y"))
 
 
 def verify_date(day, month, year):
