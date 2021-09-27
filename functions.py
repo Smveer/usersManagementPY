@@ -29,7 +29,7 @@ def generate_pwd():
     # print("The encryption password:", hashed)
     return hashed
 
-def expiration_pwd()
+def expired_pwd()
     now = datetime.datetime.now()
     one_month = calendar.monthrange(now.year, now.month)[1]
     end = now + timedelta(days=one_month)
@@ -38,6 +38,8 @@ def expiration_pwd()
     print(now.strftime("%d-%m-%Y"))
     print("1 Month: ")
     print(end.strftime("%d-%m-%Y"))
+
+    print("Your password is expired can you change please: ", )
 
 
 def verify_date(day, month, year):
