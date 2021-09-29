@@ -5,6 +5,7 @@ from dbFunctions import sign_in
 sys.path.append("../../usersManagementPY")
 
 from functions import *
+from dbFunctions import *
 
 
 class User(object):
@@ -12,12 +13,21 @@ class User(object):
     def __init__(self, lastname, firstname, dateBirth, pob, email):
         self.lastname = lastname
         self.firstname = firstname
-        verify_date(dateBirth)
-        self.dateOfBirth = dateBirth
+        while True:
+            if verify_date(dateBirth):
+                self.dateOfBirth = dateBirth
+                break
+            else:
+                dateBirth = ask_date_birth()
         self.placeOfBirth = pob
-        verify_email(email)
-        self.email = email
+        while True:
+            if verify_email(email):
+                self.email = email
+                break
+            else:
+                email = ask_email()
         self.password = generate_pwd()
+        self.login = attribute_login(self.firstname, self.lastname)
 
     def set_lastname(self, lastname):
         self.lastname = lastname
@@ -55,5 +65,5 @@ class User(object):
     def get_pwd(self):
         return self.password
 
-    def get_id(self):
-        return self.firstname[0] + self.lastname
+    def get_login(self):
+        return self.login

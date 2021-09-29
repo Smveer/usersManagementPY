@@ -10,7 +10,7 @@ pays = input("pays:")
 email = input("email:")
 
 moi = User(nom, prenom, dateNaissance, pays, email)
-print(moi.get_id())
+print(moi.get_login())
 print(moi.get_dob())
 print(moi.get_email())
 print("------------------------------------------------")

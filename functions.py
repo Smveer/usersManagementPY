@@ -17,7 +17,7 @@ def verify_email(email):
     if (re.search(regex, email)):
         return True
     else:
-        sys.exit("Error in email")
+        return False
 
 
 def generate_pwd():
@@ -97,6 +97,14 @@ def verify_date(the_date):
         return False
 
 
+def ask_email():
+    return input("Please enter email in format xxxxxxx@xxxxxx.xxx: ")
+
+
+def ask_date_birth():
+    return input("Please enter date of birth in format DD/MM/YYYY: ")
+
+
 def sign_in_as_admin(login, password):
     info = sign_in(login, password)
     if len(info) != 0:
@@ -117,3 +125,18 @@ def sign_in_as_worker(login, password):
             return False
     else:
         return False
+
+
+def attribute_login(firstname, lastname):
+    counter = 0
+    login = firstname[0] + lastname
+    while True:
+        if counter == 0:
+            login = firstname[0] + lastname
+        else:
+            login = firstname[0] + lastname + str(counter)
+        if if_login_exists(login):
+            counter += 1
+            continue
+        else:
+            return login

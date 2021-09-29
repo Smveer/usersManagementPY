@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append("../../usersManagementPY")
 from classes.Bdd import *
 
@@ -36,6 +37,18 @@ def get_user_with_id(id):
 def sign_in(login, password):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM `users` WHERE userLogin=\'" + str(login) + "\'AND userPassword=\'" + str(password) + "\'")
+    cursor.execute(
+        "SELECT * FROM `users` WHERE userLogin=\'" + str(login) + "\'AND userPassword=\'" + str(password) + "\'")
     cnx.disconnect_db()
     return cursor.fetchall()
+
+
+def if_login_exists(login):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM `users` WHERE userLogin=\'" + str(login) + "\'")
+    cnx.disconnect_db()
+    if len(cursor.fetchall()) != 0:
+        return True
+    else:
+        return False
