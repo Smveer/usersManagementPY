@@ -6,11 +6,11 @@ from functions import *
 
 class User(object):
 
-    def __init__(self, lastname, firstname, day, month, year, pob, email):
+    def __init__(self, lastname, firstname, dateBirth, pob, email):
         self.lastname = lastname
         self.firstname = firstname
-        verify_date(day, month, year)
-        self.dateOfBirth = [day, month, year]
+        verify_date(dateBirth)
+        self.dateOfBirth = dateBirth
         self.placeOfBirth = pob
         verify_email(email)
         self.email = email
@@ -28,8 +28,8 @@ class User(object):
     def get_firstname(self):
         return self.firstname
 
-    def set_dob(self, day, month, year):
-        self.dateOfBirth = [day, month, year]
+    def set_dob(self, dateBirth):
+        self.dateOfBirth = dateBirth
 
     def get_dob(self):
         return self.dateOfBirth
