@@ -7,6 +7,8 @@ from datetime import date, timedelta
 import calendar
 import sys
 
+from dbFunctions import *
+
 sys.path.append("../../usersManagementPY")
 
 
@@ -71,10 +73,13 @@ def verify_pwd_validity(pwd):
 def verify_date(the_date):
     split_date = the_date.split('/')
     if len(split_date) == 3:
-        if (1 > int(split_date[0]) > 31) or (datetime.date.today().year == int(split_date[2]) and datetime.date.today().month == int(split_date[1]) and datetime.date.today().day < int(split_date[0])):
+        if (1 > int(split_date[0]) > 31) or (
+                datetime.date.today().year == int(split_date[2]) and datetime.date.today().month == int(
+            split_date[1]) and datetime.date.today().day < int(split_date[0])):
             print("The given date is wrong")
             return False
-        elif (1 > int(split_date[1]) > 12) or (datetime.date.today().year == int(split_date[2]) and datetime.date.today().month < int(split_date[1])):
+        elif (1 > int(split_date[1]) > 12) or (
+                datetime.date.today().year == int(split_date[2]) and datetime.date.today().month < int(split_date[1])):
             print("The given date is wrong")
             return False
         elif datetime.date.today().year < int(split_date[2]):
@@ -89,4 +94,26 @@ def verify_date(the_date):
                 return False
     else:
         print("The given date is wrong")
+        return False
+
+
+def sign_in_as_admin(login, password):
+    info = sign_in(login, password)
+    if len(info) != 0:
+        if info[0]["userDepartement"] == "admin":
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def sign_in_as_worker(login, password):
+    info = sign_in(login, password)
+    if len(info) != 0:
+        if info[0]["userDepartement"] == "worker":
+            return True
+        else:
+            return False
+    else:
         return False

@@ -31,3 +31,11 @@ def get_user_with_id(id):
 
         print('%s | %s -> %s --- %s' % (id, title, email, departement))
     cnx.disconnect_db()
+
+
+def sign_in(login, password):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM `users` WHERE userLogin=\'" + str(login) + "\'AND userPassword=\'" + str(password) + "\'")
+    cnx.disconnect_db()
+    return cursor.fetchall()
