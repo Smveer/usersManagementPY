@@ -72,3 +72,12 @@ def insert_user(login, lastname, firstname, email, password, dob, cob):
     cursor.execute(query, values)
     cnx.connection.commit()
     cnx.connection.close()
+
+def delete_user_with_id(id):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "DELETE  FROM users WHERE userId=%s"
+    values = (id,)
+    cursor.execute(query, values)
+    cnx.connection.commit()
+    cnx.connection.close()
