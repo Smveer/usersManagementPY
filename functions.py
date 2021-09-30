@@ -7,9 +7,10 @@ from datetime import date, timedelta
 import calendar
 import sys
 
+sys.path.append("../../usersManagementPY")
+from classes.User import *
 from dbFunctions import *
 
-sys.path.append("../../usersManagementPY")
 
 
 def verify_email(email):
@@ -140,3 +141,9 @@ def attribute_login(firstname, lastname):
             continue
         else:
             return login
+
+
+def create_user(user):
+    splited_dob = user.dateOfBirth.split('/')
+    dob = str(splited_dob[2]) + str(splited_dob[1]) + str(splited_dob[0])
+    insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)

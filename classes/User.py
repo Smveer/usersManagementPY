@@ -1,11 +1,8 @@
-import sys
-
-from dbFunctions import *
-
-sys.path.append("../../usersManagementPY")
-
 from functions import *
 from dbFunctions import *
+import sys
+
+sys.path.append("../../usersManagementPY")
 
 
 class User(object):
