@@ -15,7 +15,7 @@ moi = User(nom, prenom, dateNaissance, pays, email)
 #print(moi.get_email())
 #print("------------------------------------------------")
 #print(moi.get_pwd())
-#moi.set_pwd()
+#moi.random_pwd()
 #print(moi.get_pwd())
 
 create_user(moi)

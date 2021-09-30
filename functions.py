@@ -12,26 +12,12 @@ from classes.User import *
 from dbFunctions import *
 
 
-
 def verify_email(email):
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if (re.search(regex, email)):
         return True
     else:
         return False
-
-
-def generate_pwd():
-    characters = string.ascii_letters + string.digits + string.punctuation
-    # print ('The available characters:', characters)
-    pwd = ""
-    for i in range(12):
-        pwd += characters[random.randint(0, len(characters) - 1)]
-    print("Your password is: ", pwd)
-    salt = "project"
-    hashed = hashlib.sha512(pwd.encode() + salt.encode()).hexdigest()
-    # print("The encryption password:", hashed)
-    return hashed
 
 
 def set_pwd_expiry():
@@ -71,6 +57,36 @@ def verify_pwd_validity(pwd):
         return False
 
 
+def create_hash(pwd):
+    salt = "project"
+    hashed = hashlib.sha512(pwd.encode() + salt.encode()).hexdigest()
+    # print("The encryption password:", hashed)
+    return hashed
+
+
+def generate_pwd_hash():
+    characters = string.ascii_letters + string.digits + string.punctuation
+    # print ('The available characters:', characters)
+    pwd = ""
+    for i in range(12):
+        pwd += characters[random.randint(0, len(characters) - 1)]
+    print("Your password is: ", pwd)
+    hashed = create_hash(pwd)
+    return hashed
+
+
+def create_pwd_hash(pwd):
+    while True:
+        if verify_pwd_validity(pwd):
+            print("Your password is: ", pwd)
+            break
+        else:
+            pwd = ask_pwd()
+    hashed = create_hash(pwd)
+    # print("The encryption password:", hashed)
+    return hashed
+
+
 def verify_date(the_date):
     split_date = the_date.split('/')
     if len(split_date) == 3:
@@ -104,6 +120,15 @@ def ask_email():
 
 def ask_date_birth():
     return input("Please enter date of birth in format DD/MM/YYYY: ")
+
+
+def ask_pwd():
+    print("Your password must contain at least:\n"
+          "8 characters,\n"
+          "1 lowercase letter,\n"
+          "1 capital letter,\n"
+          "1 digit\n")
+    return input("Please enter password again: ")
 
 
 def sign_in_as_admin(login, password):

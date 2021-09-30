@@ -1,7 +1,7 @@
 import sys
-
-sys.path.append("../../usersManagementPY")
 from classes.Bdd import *
+sys.path.append("../../usersManagementPY")
+import functions
 
 
 def get_all_users():
@@ -27,7 +27,7 @@ def get_user_with_login_password(login, password):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
     query = "SELECT * FROM users WHERE userLogin=%s AND userPassword=%s"
-    values = (login, password)
+    values = (login, functions.create_hash(password))
     cursor.execute(query, values)
     cnx.connection.close()
     return cursor.fetchall()
@@ -72,6 +72,7 @@ def insert_user(login, lastname, firstname, email, password, dob, cob):
     cursor.execute(query, values)
     cnx.connection.commit()
     cnx.connection.close()
+
 
 def delete_user_with_id(id):
     cnx = Bdd()

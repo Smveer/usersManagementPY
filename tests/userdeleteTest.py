@@ -2,4 +2,4 @@ import sys
 sys.path.append("../../usersManagementPY")
 from dbFunctions import *
 
-delete_user_with_id(10)
+delete_user_with_id(13)
