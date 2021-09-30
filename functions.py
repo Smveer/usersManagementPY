@@ -106,7 +106,7 @@ def ask_date_birth():
 
 
 def sign_in_as_admin(login, password):
-    info = sign_in(login, password)
+    info = get_user_with_login_password(login, password)
     if len(info) != 0:
         if info[0]["userDepartement"] == "admin":
             return True
@@ -117,7 +117,7 @@ def sign_in_as_admin(login, password):
 
 
 def sign_in_as_worker(login, password):
-    info = sign_in(login, password)
+    info = get_user_with_login_password(login, password)
     if len(info) != 0:
         if info[0]["userDepartement"] == "worker":
             return True

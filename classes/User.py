@@ -1,6 +1,6 @@
 import sys
 
-from dbFunctions import sign_in
+from dbFunctions import *
 
 sys.path.append("../../usersManagementPY")
 

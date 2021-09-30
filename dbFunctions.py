@@ -7,48 +7,68 @@ from classes.Bdd import *
 def get_all_users():
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
-    cursor.execute('SELECT `userId`, `userLogin`, `userEmail`, `userDepartement` FROM `users`')
-    results = cursor.fetchall()
-    for row in results:
-        id = row['userId']
-        title = row['userLogin']
-        email = row['userEmail']
-        departement = row['userDepartement']
-
-        print('%s | %s -> %s --- %s' % (id, title, email, departement))
-    cnx.disconnect_db()
+    query = "SELECT * FROM users"
+    cursor.execute(query)
+    cnx.connection.close()
+    return cursor.fetchall()
 
 
 def get_user_with_id(id):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
-    cursor.execute('SELECT `userId`, `userLogin`, `userEmail`, `userDepartement` FROM `users` WHERE userId=' + str(id))
-    results = cursor.fetchall()
-    for row in results:
-        id = row['userId']
-        title = row['userLogin']
-        email = row['userEmail']
-        departement = row['userDepartement']
-
-        print('%s | %s -> %s --- %s' % (id, title, email, departement))
-    cnx.disconnect_db()
+    query = "SELECT * FROM users WHERE userId=%s"
+    values = (id,)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    return cursor.fetchall()
 
 
-def sign_in(login, password):
+def get_user_with_login_password(login, password):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
-    cursor.execute(
-        "SELECT * FROM `users` WHERE userLogin=\'" + str(login) + "\'AND userPassword=\'" + str(password) + "\'")
-    cnx.disconnect_db()
+    query = "SELECT * FROM users WHERE userLogin=%s AND userPassword=%s"
+    values = (login, password)
+    cursor.execute(query, values)
+    cnx.connection.close()
     return cursor.fetchall()
 
 
 def if_login_exists(login):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM `users` WHERE userLogin=\'" + str(login) + "\'")
-    cnx.disconnect_db()
+    query = "SELECT * FROM users WHERE userLogin= %s"
+    values = (login,)
+    cursor.execute(query, values)
+    cnx.connection.close()
     if len(cursor.fetchall()) != 0:
         return True
     else:
         return False
+
+
+def insert_user(login, lastname, firstname, email, password, dob, cob):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "INSERT INTO users (" \
+            "userLogin, " \
+            "userLastName, " \
+            "userFirstName, " \
+            "userEmail, " \
+            "userPassword, " \
+            "userDoB, " \
+            "userCoB, " \
+            "userDepartement) " \
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    values = (
+        login,
+        lastname,
+        firstname,
+        email,
+        password,
+        dob,
+        cob,
+        "worker"
+    )
+    cursor.execute(query, values)
+    cnx.connection.commit()
+    cnx.connection.close()

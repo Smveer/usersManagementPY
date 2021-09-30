@@ -12,6 +12,3 @@ class Bdd(object):
             'raise_on_warnings': True
         }
         self.connection = mysql.connector.connect(**config)
-
-    def disconnect_db(self):
-        self.connection.close()
