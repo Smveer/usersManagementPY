@@ -3,42 +3,61 @@ class bcolors:
     WARNING = '\033[93m' #YELLOW
     FAIL = '\033[91m' #RED
     RESET = '\033[0m' #RESET COLOR
+    Black = "\033[0;30m"  # Black
+    Red = "\033[0;31m"  # Red
+    Green = "\033[0;32m"  # Green
+    Yellow = "\033[0;33m"  # Yellow
+    Blue = "\033[0;34m"  # Blue
+    Purple = "\033[0;35m"  # Purple
+    Cyan = "\033[0;36m"  # Cyan
+    pink = '\033[95m'
+    White = "\033[0;37m"  # White
+    BBlack = '\033[1;30m'  # Black
+    BRed = '\033[1;31m'  # Red
+    BGreen = '\033[1;32m'  # Green
+    BYellow = '\033[1;33m'  # Yellow
+    BBlue = '\033[1;34m'  # Blue
+    BPurple = '\033[1;35m'  # Purple
+    BCyan = '\033[1;36m'  # Cyan
+    BWhite = '\033[1;37m'  # White
+
+
+
 import sys
 ##MAIN MENU
-
-print ("#############################################################################")
-print ("########                                                             ########")
-print ("########               GESTION UTILISATEUR IN PYTHON                 ########")
-print ("######## ----------------------------------------------------------- ########")
-print ("########      Create By : SINGH Manveer & GEORGE Mukilventhan        ########")
-print ("######## ----------------------------------------------------------- ########")
-print ("########                                                             ########")
-print ("########                    Choose a option:                         ########")
-print ("########                                                             ########")
-print ("########           1) ADMIN        |   2) USER                       ########")
-print ("########                                                             ########")
-print ("########                        3) Exit                              ########")
-print ("########                                                             ########")
-print ("########                                                             ########")
-print ("#############################################################################")
-number = input("Enter a number from 1 to 3: ")
+print (f"{bcolors.Cyan}#############################################################################")
+print (f"{bcolors.Cyan}########                                                             ########")
+print (f"{bcolors.Cyan}######## "f"{bcolors.Purple}            GESTION UTILISATEUR IN PYTHON  " f"{bcolors.Cyan}                 ########")
+print (f"{bcolors.Cyan}######## ----------------------------------------------------------- ########")
+print (f"{bcolors.Cyan}######## "f"{bcolors.Purple}      Create By : SINGH Manveer & GEORGE Mukilventhan " f"{bcolors.Cyan}      ########")
+print (f"{bcolors.Cyan}######## ----------------------------------------------------------- ########")
+print (f"{bcolors.Cyan}########                                                             ########")
+print (f"{bcolors.Cyan}######## "f"{bcolors.Purple}                  Choose a option: " f"{bcolors.Cyan}                         ########")
+print (f"{bcolors.Cyan}########                                                             ########")
+print (f"{bcolors.Cyan}######## "f"{bcolors.Purple}             1) ADMIN        |   2) USER "f" {bcolors.Cyan}                  ########")
+print (f"{bcolors.Cyan}########                                                             ########")
+print (f"{bcolors.Cyan}######## "f"{bcolors.Purple}                        3) Exit     "f" {bcolors.Cyan}                       ########")
+print (f"{bcolors.Cyan}########                                                             ########")
+print (f"{bcolors.Cyan}########                                                             ########")
+print (f"{bcolors.Cyan}#############################################################################")
+number = input(f"{bcolors.BYellow}Enter a number from 1 to 3: ")
 if int(number) == 1:
-    print("#############################################################################")
-    print("########                                                             ########")
-    print("########                       WELCOME ADMIN                         ########")
-    print("######## ----------------------------------------------------------- ########")
-    print("########      Create By : SINGH Manveer & GEORGE Mukilventhan        ########")
-    print("######## ----------------------------------------------------------- ########")
-    print("########                                                             ########")
-    print("########                    Choose a option:                         ########")
-    print("########                                                             ########")
-    print("########                    1) CONNECTION                            ########")
-    print("########                                                             ########")
-    print("########                    2) Exit                                  ########")
-    print("########                                                             ########")
-    print("########                                                             ########")
-    print("#############################################################################")
-    number = input("Enter a number from 1 to 2: ")
+    print(f"{bcolors.pink}#############################################################################")
+    print(f"{bcolors.pink}########                                                             ########")
+    print (f"{bcolors.pink}######## "f"{bcolors.Blue}                     WELCOME ADMIN  " f"{bcolors.pink}                        ########")
+    print (f"{bcolors.pink}######## ----------------------------------------------------------- ########")
+    print (f"{bcolors.pink}######## "f"{bcolors.Blue}      Create By : SINGH Manveer & GEORGE Mukilventhan " f"{bcolors.pink}      ########")
+    print (f"{bcolors.pink}######## ----------------------------------------------------------- ########")
+    print(f"{bcolors.pink}########                                                             ########")
+    print (f"{bcolors.pink}######## "f"{bcolors.Blue}                  Choose a option: " f"{bcolors.pink}                         ########")
+    print(f"{bcolors.pink}########                                                             ########")
+    print (f"{bcolors.pink}######## "f"{bcolors.Blue}                   1) CONNECTION                      " f"{bcolors.pink}      ########")
+    print(f"{bcolors.pink}########                                                             ########")
+    print (f"{bcolors.pink}######## "f"{bcolors.Blue}                   1) Exit                      " f"{bcolors.pink}            ########")
+    print(f"{bcolors.pink}########                                                             ########")
+    print(f"{bcolors.pink}########                                                             ########")
+    print(f"{bcolors.pink}#############################################################################")
+    number = input(f"{bcolors.BYellow}Enter a number from 1 to 2: ")
     if int(number) == 1:
         print("#############################################################################")
         print("########                                                             ########")
@@ -382,5 +401,5 @@ elif int(number) == 3:
     print('You will exit the menu')
     sys.exit
 else:
-    print('Sorry, your choice is wrong can you try again please!')
+    print(bcolors.Red+'Sorry, your choice is wrong can you try again please!')
 
