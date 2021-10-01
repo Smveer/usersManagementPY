@@ -24,8 +24,17 @@ def set_pwd_expiry():
     now = datetime.datetime.now()
     one_month = calendar.monthrange(now.year, now.month)[1]
     end = now + timedelta(days=one_month)
-    print("You can change your password on  ")
-    print(end.strftime("%d-%m-%Y"))
+    return end.strftime("%Y-%m-%d")
+
+
+def verify_expiry(id):
+    user = get_user_with_id(id)
+    splited_date = str(user[0]["userPasswordExpiry"]).split('-')
+    expiry_date = str(splited_date[2]) + "-" + str(splited_date[1]) + "-" + str(splited_date[0])
+    if verify_date(expiry_date):
+        return False
+    else:
+        return True
 
 
 def verify_pwd_validity(pwd):
@@ -88,19 +97,16 @@ def create_pwd_hash(pwd):
 
 
 def verify_date(the_date):
-    split_date = the_date.split('/')
+    split_date = the_date.split('-')
     if len(split_date) == 3:
         if (1 > int(split_date[0]) > 31) or (
                 datetime.date.today().year == int(split_date[2]) and datetime.date.today().month == int(
             split_date[1]) and datetime.date.today().day < int(split_date[0])):
-            print("The given date is wrong")
             return False
         elif (1 > int(split_date[1]) > 12) or (
                 datetime.date.today().year == int(split_date[2]) and datetime.date.today().month < int(split_date[1])):
-            print("The given date is wrong")
             return False
         elif datetime.date.today().year < int(split_date[2]):
-            print("The given date is wrong")
             return False
         else:
             try:
@@ -119,7 +125,7 @@ def ask_email():
 
 
 def ask_date_birth():
-    return input("Please enter date of birth in format DD/MM/YYYY: ")
+    return input("Please enter date of birth in format DD-MM-YYYY: ")
 
 
 def ask_pwd():
@@ -169,6 +175,6 @@ def attribute_login(firstname, lastname):
 
 
 def create_user(user):
-    splited_dob = user.dateOfBirth.split('/')
-    dob = str(splited_dob[2]) + str(splited_dob[1]) + str(splited_dob[0])
+    splited_dob = user.dateOfBirth.split('-')
+    dob = str(splited_dob[2]) + "-" + str(splited_dob[1]) + "-" + str(splited_dob[0])
     insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)

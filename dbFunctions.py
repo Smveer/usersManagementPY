@@ -1,5 +1,6 @@
 import sys
 from classes.Bdd import *
+
 sys.path.append("../../usersManagementPY")
 import functions
 
@@ -79,6 +80,16 @@ def delete_user_with_id(id):
     cursor = cnx.connection.cursor(dictionary=True)
     query = "DELETE  FROM users WHERE userId=%s"
     values = (id,)
+    cursor.execute(query, values)
+    cnx.connection.commit()
+    cnx.connection.close()
+
+
+def push_expiry_date(id):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "UPDATE users SET userPasswordExpiry=%s WHERE userId=%s"
+    values = (functions.set_pwd_expiry(), id)
     cursor.execute(query, values)
     cnx.connection.commit()
     cnx.connection.close()
