@@ -128,6 +128,18 @@ def ask_date_birth():
     return input("Please enter date of birth in format DD-MM-YYYY: ")
 
 
+def ask_firstname():
+    return input("Please enter your firstname: ")
+
+
+def ask_lastname():
+    return input("Please enter your lastname: ")
+
+
+def ask_country():
+    return input("Please enter your birth country: ")
+
+
 def ask_pwd():
     print("Your password must contain at least:\n"
           "8 characters,\n"
@@ -178,3 +190,10 @@ def create_user(user):
     splited_dob = user.dateOfBirth.split('-')
     dob = str(splited_dob[2]) + "-" + str(splited_dob[1]) + "-" + str(splited_dob[0])
     insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)
+
+
+def check_string(striing):
+    if len(striing.strip()) == 0:
+        return False
+    else:
+        return striing.strip().capitalize()
