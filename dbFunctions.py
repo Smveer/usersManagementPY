@@ -46,6 +46,7 @@ def if_login_exists(login):
     else:
         return False
 
+
 def if_email_exists(email):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -57,7 +58,6 @@ def if_email_exists(email):
         return True
     else:
         return False
-
 
 
 def insert_user(login, lastname, firstname, email, password, dob, cob):
