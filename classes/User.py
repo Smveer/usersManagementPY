@@ -1,8 +1,6 @@
-from functions import *
+import functions
 from dbFunctions import *
 import sys
-
-from functions import create_pwd_hash
 
 sys.path.append("../../usersManagementPY")
 
@@ -11,98 +9,100 @@ class User(object):
 
     def __init__(self, lastname, firstname, dateBirth, pob, email):
         while True:
-            if check_string(lastname):
-                self.lastname = check_string(lastname)
+            if functions.check_string(lastname):
+                self.lastname = functions.check_string(lastname)
                 break
             else:
-                lastname = ask_lastname()
+                lastname = functions.ask_lastname()
         while True:
-            if check_string(firstname):
-                self.firstname = check_string(firstname)
+            if functions.check_string(firstname):
+                self.firstname = functions.check_string(firstname)
                 break
             else:
-                firstname = ask_firstname()
+                firstname = functions.ask_firstname()
         while True:
-            if verify_date(dateBirth):
+            if functions.verify_date(dateBirth):
                 self.dateOfBirth = dateBirth
                 break
             else:
-                dateBirth = ask_date_birth()
+                dateBirth = functions.ask_date_birth()
         while True:
-            if check_string(pob):
-                self.placeOfBirth = check_string(pob)
+            if functions.check_string(pob):
+                self.placeOfBirth = functions.check_string(pob)
                 break
             else:
-                pob = ask_country()
+                pob = functions.ask_country()
         while True:
-            if verify_email(email):
+            if functions.verify_email(email):
                 self.email = email
                 break
             else:
-                email = ask_email()
-        self.password = generate_pwd_hash()
-        self.login = attribute_login(self.firstname, self.lastname)
+                email = functions.ask_email()
+        self.password = ""
+        self.login = functions.attribute_login(self.firstname, self.lastname)
+        self.id = ""
+        self.departement = ""
 
     def set_lastname(self, lastname):
         while True:
-            if check_string(lastname):
-                self.lastname = check_string(lastname)
+            if functions.check_string(lastname):
+                self.lastname = functions.check_string(lastname)
                 break
             else:
-                lastname = ask_lastname()
+                lastname = functions.ask_lastname()
 
     def get_lastname(self):
         return self.lastname
 
     def set_firstname(self, firstname):
         while True:
-            if check_string(firstname):
-                self.firstname = check_string(firstname)
+            if functions.check_string(firstname):
+                self.firstname = functions.check_string(firstname)
                 break
             else:
-                firstname = ask_firstname()
+                firstname = functions.ask_firstname()
 
     def get_firstname(self):
         return self.firstname
 
     def set_dob(self, dateBirth):
         while True:
-            if verify_date(dateBirth):
+            if functions.verify_date(dateBirth):
                 self.dateOfBirth = dateBirth
                 break
             else:
-                dateBirth = ask_date_birth()
+                dateBirth = functions.ask_date_birth()
 
     def get_dob(self):
         return self.dateOfBirth
 
     def set_pob(self, country):
         while True:
-            if check_string(country):
-                self.placeOfBirth = check_string(country)
+            if functions.check_string(country):
+                self.placeOfBirth = functions.check_string(country)
                 break
             else:
-                country = ask_country()
+                country = functions.ask_country()
 
     def get_pob(self):
         return self.placeOfBirth
 
     def set_email(self, email):
         while True:
-            if verify_email(email):
+            if functions.verify_email(email):
                 self.email = email
                 break
             else:
-                email = ask_email()
+                email = functions.ask_email()
 
     def get_email(self):
         return self.email
 
-    def random_pwd(self):
-        self.password = generate_pwd_hash()
+    def set_random_pwd(self):
+        self.password = functions.generate_pwd_hash()
 
     def set_pwd(self, pwd):
-        self.password = create_pwd_hash(pwd)
+        self.password = functions.create_pwd_hash(pwd)
 
     def get_pwd(self):
         return self.password
@@ -111,5 +111,16 @@ class User(object):
         return self.login
 
     def set_login(self):
-        self.login = attribute_login(self.firstname, self.lastname)
-        
+        self.login = functions.attribute_login(self.firstname, self.lastname)
+
+    def get_id(self):
+        return self.id
+
+    def set_id(self, id):
+        self.id = id
+
+    def get_departement(self):
+        return self.departement
+
+    def set_departement(self, departement):
+        self.departement = departement

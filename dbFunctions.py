@@ -85,11 +85,11 @@ def delete_user_with_id(id):
     cnx.connection.close()
 
 
-def push_expiry_date(id):
+def update_pwd(pwd, id):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
-    query = "UPDATE users SET userPasswordExpiry=%s WHERE userId=%s"
-    values = (functions.set_pwd_expiry(), id)
+    query = "UPDATE users SET userPassword=%s, userPasswordExpiry=%s WHERE userId=%s"
+    values = (pwd, functions.set_pwd_expiry(), id)
     cursor.execute(query, values)
     cnx.connection.commit()
     cnx.connection.close()

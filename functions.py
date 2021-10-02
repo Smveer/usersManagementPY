@@ -12,6 +12,13 @@ from classes.User import *
 from dbFunctions import *
 
 
+def check_string(striing):
+    if len(striing.strip()) == 0:
+        return False
+    else:
+        return striing.strip().capitalize()
+
+
 def verify_email(email):
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if (re.search(regex, email)):
@@ -153,7 +160,16 @@ def sign_in_as_admin(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
         if info[0]["userDepartement"] == "admin":
-            return True
+            user = User(info[0]["userLastName"], info[0]["userFirstName"], info[0]["userDoB"].strftime("%d-%m-%Y"),
+                        info[0]["userCoB"], info[0]["userEmail"])
+            user.set_id(info[0]["userId"])
+            user.set_departement(info[0]["userDepartement"])
+            if verify_expiry(user.get_id()):
+                return user
+            else:
+                user.set_random_pwd()
+                update_pwd(user.get_pwd(), user.get_id())
+                return user
         else:
             return False
     else:
@@ -164,7 +180,16 @@ def sign_in_as_worker(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
         if info[0]["userDepartement"] == "worker":
-            return True
+            user = User(info[0]["userLastName"], info[0]["userFirstName"], info[0]["userDoB"].strftime("%d-%m-%Y"),
+                        info[0]["userCoB"], info[0]["userEmail"])
+            user.set_id(info[0]["userId"])
+            user.set_departement(info[0]["userDepartement"])
+            if verify_expiry(user.get_id()):
+                return user
+            else:
+                user.set_random_pwd()
+                update_pwd(user.get_pwd(), user.get_id())
+                return user
         else:
             return False
     else:
@@ -187,13 +212,7 @@ def attribute_login(firstname, lastname):
 
 
 def create_user(user):
+    user.set_random_pwd()
     splited_dob = user.dateOfBirth.split('-')
     dob = str(splited_dob[2]) + "-" + str(splited_dob[1]) + "-" + str(splited_dob[0])
     insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)
-
-
-def check_string(striing):
-    if len(striing.strip()) == 0:
-        return False
-    else:
-        return striing.strip().capitalize()
