@@ -12,7 +12,7 @@ from classes.User import *
 from dbFunctions import *
 
 
-# remove space  and uppercase
+# remove useless spaces (before & after) and capitalize string
 def check_string(striing):
     if len(striing.strip()) == 0:
         return False

@@ -197,3 +197,21 @@ def search_by_Department(dep):
     cursor.execute(query, values)
     cnx.connection.close()
     return cursor.fetchall()
+
+
+# update user information
+def update_user(login, lastname, firstname, email, dob, cob, id):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "UPDATE users SET " \
+            "userLogin=%s, " \
+            "userLastName=%s, " \
+            "userFirstName=%s, " \
+            "userEmail=%s, " \
+            "userDoB=%s, " \
+            "userCoB=%s " \
+            "WHERE userId=%s"
+    values = (login, lastname, firstname, email, dob, cob, id)
+    cursor.execute(query, values)
+    cnx.connection.commit()
+    cnx.connection.close()
