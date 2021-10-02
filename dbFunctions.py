@@ -136,3 +136,43 @@ def search_by_firstname(firstname):
     cursor.execute(query, values)
     cnx.connection.close()
     return cursor.fetchall()
+
+
+def search_by_email(email):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "SELECT * FROM users WHERE userEmail LIKE %s"
+    values = (email + "%",)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    return cursor.fetchall()
+
+
+def search_by_dob(dob):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "SELECT * FROM users WHERE userDoB LIKE %s"
+    values = (dob + "%",)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    return cursor.fetchall()
+
+
+def search_by_cob(cob):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "SELECT * FROM users WHERE userCoB LIKE %s"
+    values = (cob + "%",)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    return cursor.fetchall()
+
+
+def search_by_Department(dep):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "SELECT * FROM users WHERE userDepartement LIKE %s"
+    values = (dep + "%",)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    return cursor.fetchall()
