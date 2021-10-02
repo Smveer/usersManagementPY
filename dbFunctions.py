@@ -1,3 +1,4 @@
+# The mysql queries
 import sys
 from classes.Bdd import *
 
@@ -5,6 +6,7 @@ sys.path.append("../../usersManagementPY")
 import functions
 
 
+# Show all user
 def get_all_users():
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -14,6 +16,7 @@ def get_all_users():
     return cursor.fetchall()
 
 
+# Show all user with ID
 def get_user_with_id(id):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -24,6 +27,7 @@ def get_user_with_id(id):
     return cursor.fetchall()
 
 
+# Connection user in login step
 def get_user_with_login_password(login, password):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -34,6 +38,7 @@ def get_user_with_login_password(login, password):
     return cursor.fetchall()
 
 
+# verification login exist in login step
 def if_login_exists(login):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -47,6 +52,7 @@ def if_login_exists(login):
         return False
 
 
+# verification email exist in login step
 def if_email_exists(email):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -60,6 +66,7 @@ def if_email_exists(email):
         return False
 
 
+# insert user information to the DataBase
 def insert_user(login, lastname, firstname, email, password, dob, cob):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -88,6 +95,7 @@ def insert_user(login, lastname, firstname, email, password, dob, cob):
     cnx.connection.close()
 
 
+# delete user in the DataBase
 def delete_user_with_id(id):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -98,6 +106,7 @@ def delete_user_with_id(id):
     cnx.connection.close()
 
 
+# change the password if it's expired
 def update_pwd(pwd, id):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -108,6 +117,7 @@ def update_pwd(pwd, id):
     cnx.connection.close()
 
 
+# change department
 def update_departement(dep, id):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -118,6 +128,7 @@ def update_departement(dep, id):
     cnx.connection.close()
 
 
+# search user by lastname
 def search_by_lastname(lastname):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -128,6 +139,7 @@ def search_by_lastname(lastname):
     return cursor.fetchall()
 
 
+# search user by firstname
 def search_by_firstname(firstname):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -138,6 +150,7 @@ def search_by_firstname(firstname):
     return cursor.fetchall()
 
 
+# search user by email
 def search_by_email(email):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -148,6 +161,7 @@ def search_by_email(email):
     return cursor.fetchall()
 
 
+# search user by date of birth
 def search_by_dob(dob):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -158,6 +172,7 @@ def search_by_dob(dob):
     return cursor.fetchall()
 
 
+# search user by place/country
 def search_by_cob(cob):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
@@ -168,6 +183,7 @@ def search_by_cob(cob):
     return cursor.fetchall()
 
 
+# search user by department
 def search_by_Department(dep):
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)

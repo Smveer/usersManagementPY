@@ -1,6 +1,6 @@
 import mysql.connector
 
-
+#connection to the database
 class Bdd(object):
     def __init__(self):
         config = {
