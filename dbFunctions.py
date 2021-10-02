@@ -163,6 +163,11 @@ def search_by_email(email):
 
 # search user by date of birth
 def search_by_dob(dob):
+    splited_dob = dob.split('-')
+    if len(splited_dob) == 3:
+        dob = str(splited_dob[2]) + "-" + str(splited_dob[1]) + "-" + str(splited_dob[0])
+    else:
+        return []
     cnx = Bdd()
     cursor = cnx.connection.cursor(dictionary=True)
     query = "SELECT * FROM users WHERE userDoB LIKE %s"
