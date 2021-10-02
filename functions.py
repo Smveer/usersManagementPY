@@ -42,7 +42,7 @@ def set_pwd_expiry():
     return end.strftime("%Y-%m-%d")
 
 
-# verification password expire 1 month
+# verification password expire 1 month uk model & user can't log when the password is expired he must change
 def verify_expiry(id):
     user = get_user_with_id(id)
     splited_date = str(user[0]["userPasswordExpiry"]).split('-')
@@ -83,7 +83,7 @@ def verify_pwd_validity(pwd):
         return False
 
 
-# password encryption
+# password encryption sha512
 def create_hash(pwd):
     salt = "project"
     hashed = hashlib.sha512(pwd.encode() + salt.encode()).hexdigest()
@@ -91,7 +91,7 @@ def create_hash(pwd):
     return hashed
 
 
-# Generate password with hash
+# Generate password with hash & password can generate with all characters
 def generate_pwd_hash():
     characters = string.ascii_letters + string.digits + string.punctuation
     # print ('The available characters:', characters)
@@ -102,7 +102,7 @@ def generate_pwd_hash():
     hashed = create_hash(pwd)
     return hashed
 
-
+# when user choose create password
 def create_pwd_hash(pwd):
     while True:
         if verify_pwd_validity(pwd):
@@ -116,6 +116,8 @@ def create_pwd_hash(pwd):
 
 
 # verification date future and february
+# for example birth day: 2022-03-05 it's not correct. The user must to registre correctly
+# for the month of leap February
 def verify_date(the_date):
     split_date = the_date.split('-')
     if len(split_date) == 3:
@@ -182,7 +184,7 @@ def ask_department():
     return int(input("Please enter your department: "))
 
 
-# admin connection
+# admin connection with password verification if expired
 def sign_in_as_admin(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
@@ -203,7 +205,7 @@ def sign_in_as_admin(login, password):
         return False
 
 
-# user connection
+# user connection with password verification if expired
 def sign_in_as_worker(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
@@ -240,7 +242,7 @@ def attribute_login(firstname, lastname):
             return login
 
 
-# create user
+# create user with all information
 def create_user(user):
     user.set_random_pwd()
     splited_dob = user.dateOfBirth.split('-')
