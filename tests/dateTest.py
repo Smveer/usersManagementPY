@@ -1,7 +1,7 @@
 import sys
 
-sys.path.append("../../usersManagementPY")
+from functions import *
 
-from classes.User import *
+sys.path.append("../../usersManagementPY")
 
 verify_date("26/09/2021")

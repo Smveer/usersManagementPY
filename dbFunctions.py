@@ -117,4 +117,22 @@ def update_departement(dep, id):
     cnx.connection.commit()
     cnx.connection.close()
 
-# recherche
+
+def search_by_lastname(lastname):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "SELECT * FROM users WHERE userLastName LIKE %s"
+    values = (lastname + "%",)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    return cursor.fetchall()
+
+
+def search_by_firstname(firstname):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "SELECT * FROM users WHERE userFirstName LIKE %s"
+    values = (firstname + "%",)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    return cursor.fetchall()
