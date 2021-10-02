@@ -12,6 +12,7 @@ from classes.User import *
 from dbFunctions import *
 
 
+# remove space  and uppercase
 def check_string(striing):
     if len(striing.strip()) == 0:
         return False
@@ -19,6 +20,7 @@ def check_string(striing):
         return striing.strip().capitalize()
 
 
+# verification mail
 def verify_email(email):
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if re.search(regex, email):
@@ -31,6 +33,7 @@ def verify_email(email):
         return False
 
 
+# password expire 1 month
 def set_pwd_expiry():
     now = datetime.datetime.now()
     now = datetime.datetime.now()
@@ -39,6 +42,7 @@ def set_pwd_expiry():
     return end.strftime("%Y-%m-%d")
 
 
+# verification password expire 1 month
 def verify_expiry(id):
     user = get_user_with_id(id)
     splited_date = str(user[0]["userPasswordExpiry"]).split('-')
@@ -49,6 +53,7 @@ def verify_expiry(id):
         return True
 
 
+# set password condition
 def verify_pwd_validity(pwd):
     print("Your password must contain at least:\n"
           "8 characters,\n"
@@ -78,6 +83,7 @@ def verify_pwd_validity(pwd):
         return False
 
 
+# password encryption
 def create_hash(pwd):
     salt = "project"
     hashed = hashlib.sha512(pwd.encode() + salt.encode()).hexdigest()
@@ -85,6 +91,7 @@ def create_hash(pwd):
     return hashed
 
 
+# Generate password with hash
 def generate_pwd_hash():
     characters = string.ascii_letters + string.digits + string.punctuation
     # print ('The available characters:', characters)
@@ -108,6 +115,7 @@ def create_pwd_hash(pwd):
     return hashed
 
 
+# verification date future and february
 def verify_date(the_date):
     split_date = the_date.split('-')
     if len(split_date) == 3:
@@ -132,26 +140,32 @@ def verify_date(the_date):
         return False
 
 
+# ask email
 def ask_email():
     return input("Please enter email in format xxxxxxx@xxxxxx.xxx: ")
 
 
+# ask date of birth
 def ask_date_birth():
     return input("Please enter date of birth in format DD-MM-YYYY: ")
 
 
+# ask firstname
 def ask_firstname():
     return input("Please enter your firstname: ")
 
 
+# ask lastname
 def ask_lastname():
     return input("Please enter your lastname: ")
 
 
+# ask country
 def ask_country():
     return input("Please enter your birth country: ")
 
 
+# ask password
 def ask_pwd():
     print("Your password must contain at least:\n"
           "8 characters,\n"
@@ -161,12 +175,14 @@ def ask_pwd():
     return input("Please enter password again: ")
 
 
+# ask department
 def ask_department():
     print("admin-1\n"
           "worker-2\n")
     return int(input("Please enter your department: "))
 
 
+# admin connection
 def sign_in_as_admin(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
@@ -187,6 +203,7 @@ def sign_in_as_admin(login, password):
         return False
 
 
+# user connection
 def sign_in_as_worker(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
@@ -207,6 +224,7 @@ def sign_in_as_worker(login, password):
         return False
 
 
+# set login - first letter firstname + lastname if exist +1
 def attribute_login(firstname, lastname):
     counter = 0
     login = firstname[0] + lastname
@@ -222,6 +240,7 @@ def attribute_login(firstname, lastname):
             return login
 
 
+# create user
 def create_user(user):
     user.set_random_pwd()
     splited_dob = user.dateOfBirth.split('-')
@@ -229,6 +248,7 @@ def create_user(user):
     insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)
 
 
+# choice department
 def change_departement(id):
     while True:
         department = ask_department()
@@ -239,4 +259,3 @@ def change_departement(id):
             department = "worker"
             break
     update_departement(department, id)
-
