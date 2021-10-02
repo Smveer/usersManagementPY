@@ -93,3 +93,14 @@ def update_pwd(pwd, id):
     cursor.execute(query, values)
     cnx.connection.commit()
     cnx.connection.close()
+
+
+def update_departement(dep, id):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "UPDATE users SET userDepartement=%s WHERE userId=%s"
+    values = (dep, id)
+    cursor.execute(query, values)
+    cnx.connection.commit()
+    cnx.connection.close()
+

@@ -29,8 +29,9 @@ def verify_email(email):
 
 def set_pwd_expiry():
     now = datetime.datetime.now()
-    one_month = calendar.monthrange(now.year, now.month)[1]
-    end = now + timedelta(days=one_month)
+    now = datetime.datetime.now()
+    end = now + datetime.timedelta(days=30)
+    print(end)
     return end.strftime("%Y-%m-%d")
 
 
@@ -156,6 +157,12 @@ def ask_pwd():
     return input("Please enter password again: ")
 
 
+def ask_department():
+    print("admin-1\n"
+          "worker-2\n")
+    return int(input("Please enter your department: "))
+
+
 def sign_in_as_admin(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
@@ -216,3 +223,15 @@ def create_user(user):
     splited_dob = user.dateOfBirth.split('-')
     dob = str(splited_dob[2]) + "-" + str(splited_dob[1]) + "-" + str(splited_dob[0])
     insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)
+
+
+def change_departement(id):
+    while True:
+        department = ask_department()
+        if department == 1:
+            department = "admin"
+            break
+        if department == 2:
+            department = "worker"
+            break
+    update_departement(department, id)
