@@ -46,6 +46,19 @@ def if_login_exists(login):
     else:
         return False
 
+def if_email_exists(email):
+    cnx = Bdd()
+    cursor = cnx.connection.cursor(dictionary=True)
+    query = "SELECT * FROM users WHERE userEmail= %s"
+    values = (email,)
+    cursor.execute(query, values)
+    cnx.connection.close()
+    if len(cursor.fetchall()) != 0:
+        return True
+    else:
+        return False
+
+
 
 def insert_user(login, lastname, firstname, email, password, dob, cob):
     cnx = Bdd()
@@ -104,3 +117,4 @@ def update_departement(dep, id):
     cnx.connection.commit()
     cnx.connection.close()
 
+# recherche

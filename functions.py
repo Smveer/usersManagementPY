@@ -22,7 +22,11 @@ def check_string(striing):
 def verify_email(email):
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if (re.search(regex, email)):
-        return True
+        if if_email_exists(email):
+            return True
+        else:
+            print("Email already exists")
+            return False
     else:
         return False
 
@@ -235,3 +239,4 @@ def change_departement(id):
             department = "worker"
             break
     update_departement(department, id)
+
