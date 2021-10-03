@@ -47,6 +47,7 @@ class User(object):
         while True:
             if functions.check_string(lastname):
                 self.lastname = functions.check_string(lastname)
+                self.set_login()
                 break
             else:
                 lastname = functions.ask_lastname()
@@ -58,6 +59,7 @@ class User(object):
         while True:
             if functions.check_string(firstname):
                 self.firstname = functions.check_string(firstname)
+                self.set_login()
                 break
             else:
                 firstname = functions.ask_firstname()
@@ -90,8 +92,12 @@ class User(object):
     def set_email(self, email):
         while True:
             if functions.verify_email(email):
-                self.email = email
-                break
+                if if_email_exists(email):
+                    print("Email already exists")
+                    return False
+                else:
+                    self.email = email
+                    break
             else:
                 email = functions.ask_email()
 
@@ -112,6 +118,7 @@ class User(object):
 
     def set_login(self):
         self.login = functions.attribute_login(self.firstname, self.lastname)
+        print("Your new login is " + str(self.login))
 
     def get_id(self):
         return self.id

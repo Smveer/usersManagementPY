@@ -7,6 +7,9 @@ from datetime import date, timedelta
 import calendar
 import sys
 
+from classes.Admin import Admin
+from classes.Worker import Worker
+
 sys.path.append("../../usersManagementPY")
 from classes.User import *
 from dbFunctions import *
@@ -24,11 +27,7 @@ def check_string(striing):
 def verify_email(email):
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
     if re.search(regex, email):
-        if if_email_exists(email):
-            print("Email already exists")
-            return False
-        else:
-            return True
+        return True
     else:
         return False
 
@@ -37,20 +36,22 @@ def verify_email(email):
 def set_pwd_expiry():
     now = datetime.datetime.now()
     now = datetime.datetime.now()
-    end = now + datetime.timedelta(days=30)
-    print(end)
+    end = now + datetime.timedelta(days=31)
     return end.strftime("%Y-%m-%d")
 
 
 # verification password expire 1 month uk model & user can't log when the password is expired he must change
 def verify_expiry(id):
     user = get_user_with_id(id)
-    splited_date = str(user[0]["userPasswordExpiry"]).split('-')
-    expiry_date = str(splited_date[2]) + "-" + str(splited_date[1]) + "-" + str(splited_date[0])
-    if verify_date(expiry_date):
-        return False
+    if (str(user[0]["userPasswordExpiry"]) != "None"):
+        splited_date = str(user[0]["userPasswordExpiry"]).split('-')
+        expiry_date = str(splited_date[2]) + "-" + str(splited_date[1]) + "-" + str(splited_date[0])
+        if verify_date(expiry_date):
+            return False
+        else:
+            return True
     else:
-        return True
+        return False
 
 
 # set password condition
@@ -102,6 +103,7 @@ def generate_pwd_hash():
     hashed = create_hash(pwd)
     return hashed
 
+
 # when user choose create password
 def create_pwd_hash(pwd):
     while True:
@@ -140,6 +142,20 @@ def verify_date(the_date):
     else:
         print("The given date is wrong")
         return False
+
+
+def return_user(info):
+    if len(info) != 0:
+        if info[0]["userDepartement"] == "admin":
+            user = Admin(info[0]["userLastName"], info[0]["userFirstName"], info[0]["userDoB"].strftime("%d-%m-%Y"),
+                         info[0]["userCoB"], info[0]["userEmail"])
+        else:
+            user = Worker(info[0]["userLastName"], info[0]["userFirstName"], info[0]["userDoB"].strftime("%d-%m-%Y"),
+                          info[0]["userCoB"], info[0]["userEmail"])
+        user.set_id(info[0]["userId"])
+        user.login = info[0]["userLogin"]
+        user.set_departement(info[0]["userDepartement"])
+        return user
 
 
 # ask email
@@ -181,7 +197,10 @@ def ask_pwd():
 def ask_department():
     print("admin-1\n"
           "worker-2\n")
-    return int(input("Please enter your department: "))
+    try:
+        return int(input("Please enter your department: "))
+    except:
+        return -1
 
 
 # admin connection with password verification if expired
@@ -189,10 +208,7 @@ def sign_in_as_admin(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
         if info[0]["userDepartement"] == "admin":
-            user = User(info[0]["userLastName"], info[0]["userFirstName"], info[0]["userDoB"].strftime("%d-%m-%Y"),
-                        info[0]["userCoB"], info[0]["userEmail"])
-            user.set_id(info[0]["userId"])
-            user.set_departement(info[0]["userDepartement"])
+            user = return_user(info)
             if verify_expiry(user.get_id()):
                 return user
             else:
@@ -210,10 +226,7 @@ def sign_in_as_worker(login, password):
     info = get_user_with_login_password(login, password)
     if len(info) != 0:
         if info[0]["userDepartement"] == "worker":
-            user = User(info[0]["userLastName"], info[0]["userFirstName"], info[0]["userDoB"].strftime("%d-%m-%Y"),
-                        info[0]["userCoB"], info[0]["userEmail"])
-            user.set_id(info[0]["userId"])
-            user.set_departement(info[0]["userDepartement"])
+            user = return_user(info)
             if verify_expiry(user.get_id()):
                 return user
             else:
@@ -244,10 +257,21 @@ def attribute_login(firstname, lastname):
 
 # create user with all information
 def create_user(user):
-    user.set_random_pwd()
+    if if_email_exists(user.email):
+        print("Email already exists")
+        return False
+    else:
+        user.set_random_pwd()
+        splited_dob = user.dateOfBirth.split('-')
+        dob = str(splited_dob[2]) + "-" + str(splited_dob[1]) + "-" + str(splited_dob[0])
+        insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)
+
+
+# create user with all information
+def modify_user(user):
     splited_dob = user.dateOfBirth.split('-')
     dob = str(splited_dob[2]) + "-" + str(splited_dob[1]) + "-" + str(splited_dob[0])
-    insert_user(user.login, user.lastname, user.firstname, user.email, user.password, dob, user.placeOfBirth)
+    update_user(user.login, user.lastname, user.firstname, user.email, dob, user.placeOfBirth, user.id)
 
 
 # choice department
@@ -261,3 +285,31 @@ def change_departement(id):
             department = "worker"
             break
     update_departement(department, id)
+
+
+def show_user(users):
+    print(
+        "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    print(
+        f"{'ID': ^20}"
+        f"{'LOGIN': ^20}"
+        f"{'EMAIL': ^20}"
+        f"{'LASTNAME': ^20}"
+        f"{'FIRSTNAME': ^20}"
+        f"{'DATE OF BIRTH': ^20}"
+        f"{'COUNTRY OF BIRTH': ^20}"
+        f"{'DEPARTMENT': ^20}"
+        f"{'PASSWORD EXPIRY DATE': ^20}")
+    print(
+        "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    for row in users:
+        print(
+            f"{str(row['userId']): ^20}"
+            f"{str(row['userLogin']): ^20}"
+            f"{str(row['userEmail']): ^20}"
+            f"{str(row['userLastName']): ^20}"
+            f"{str(row['userFirstName']): ^20}"
+            f"{str(row['userDoB']): ^20}"
+            f"{str(row['userCoB']): ^20}"
+            f"{str(row['userDepartement']): ^20}"
+            f"{str(row['userPasswordExpiry']): ^20}")
