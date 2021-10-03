@@ -1,3 +1,4 @@
+#colours text, design
 class bcolors:
     OK = '\033[92m' #GREEN
     FAIL = '\033[91m' #RED

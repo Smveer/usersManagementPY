@@ -188,17 +188,6 @@ def search_by_cob(cob):
     return cursor.fetchall()
 
 
-# search user by department
-def search_by_Department(dep):
-    cnx = Bdd()
-    cursor = cnx.connection.cursor(dictionary=True)
-    query = "SELECT * FROM users WHERE userDepartement LIKE %s"
-    values = (dep + "%",)
-    cursor.execute(query, values)
-    cnx.connection.close()
-    return cursor.fetchall()
-
-
 # update user information
 def update_user(login, lastname, firstname, email, dob, cob, id):
     cnx = Bdd()

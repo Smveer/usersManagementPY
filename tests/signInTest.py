@@ -6,7 +6,7 @@ admin = sign_in_as_admin("MSingh", "passwOrd2!")
 user = sign_in_as_worker("MSingh", "passwOrd2!")
 print(user)
 if(user):
-    #print(sign_in_as_worker("FSananes", "I~+Us+}g%wWg"))
+    #print(sign_in_as_worker("FSananes", "ir4{*ZVM[FJ0"))
 
     #print(create_hash("passwOrd2!"))     'X/qs9`k?eU.
     user.set_lastname("Singh")
@@ -33,3 +33,5 @@ if(admin):
     admin.modify_user_email(" ", 21)
     admin.modify_user_dob(" ", 21)
     admin.modify_user_pob(" ", 21)
+
+admin.generate_user_pwd(123)
