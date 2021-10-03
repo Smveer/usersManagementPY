@@ -1,4 +1,7 @@
 import sys
+
+from functions import create_user
+
 sys.path.append("../../usersManagementPY")
 
 from classes.User import *

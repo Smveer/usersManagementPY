@@ -8,7 +8,7 @@ print(user)
 if(user):
     #print(sign_in_as_worker("FSananes", "I~+Us+}g%wWg"))
 
-    #print(create_hash("passwOrd2!"))
+    #print(create_hash("passwOrd2!"))     'X/qs9`k?eU.
     user.set_lastname("Singh")
     user.set_firstname("Manveer")
     #user.set_login()
