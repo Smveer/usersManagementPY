@@ -187,11 +187,12 @@ class User(object):
     # search place of birth
     def search_pob(self, pob):
         while True:
-            if functions.check_string(country):
-                self.placeOfBirth = functions.check_string(country)
+            if functions.check_string(pob):
+                users = search_by_cob(functions.check_string(pob))
+                functions.show_user(users)
                 break
             else:
-                country = functions.ask_country()
+                pob = functions.ask_country()
 
     # search lastname
     def search_lastname(self, lastname):
